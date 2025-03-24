@@ -8,6 +8,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
+import { useAuth, useClerk } from "@clerk/nextjs";
 import { ListVideoIcon, HistoryIcon, ThumbsUpIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -32,6 +33,20 @@ const items = [
 ];
 
 export const PersonalSection = () => {
+  const { isSignedIn } = useAuth();
+  const { openSignIn } = useClerk();
+
+  const handleItemClick = (
+    item: (typeof items)[number],
+    event: React.MouseEvent
+  ) => {
+    if (!isSignedIn && item.auth) {
+      event.preventDefault();
+
+      return openSignIn();
+    }
+  };
+
   return (
     <SidebarGroup>
       <SidebarGroupLabel>You</SidebarGroupLabel>
@@ -43,7 +58,7 @@ export const PersonalSection = () => {
                 tooltip={item.title}
                 asChild
                 isActive={false}
-                onClick={() => {}}
+                onClick={(event) => handleItemClick(item, event)}
               >
                 <Link href={item.url} className="flex items-center gap-4">
                   <item.icon />
