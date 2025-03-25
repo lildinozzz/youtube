@@ -84,7 +84,7 @@ export async function POST(request: Request) {
           previewUrl,
           duration,
         })
-        .where(eq(videos.muxAssetId, data.upload_id));
+        .where(eq(videos.muxAssetId, data.id));
 
       break;
     }
