@@ -1,3 +1,3 @@
 export default function Page() {
-  return <div>ProtectedPage</div>;
+  return <div>Studio</div>;
 }
