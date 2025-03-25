@@ -16,6 +16,7 @@ const CategoriesSectionSuspense = (props: CategoriesSectionProps) => {
   const router = useRouter();
 
   const [categories] = trpc.categories.getMany.useSuspenseQuery();
+  
   const data = categories.map(({ name, id }) => ({
     value: id,
     label: name,

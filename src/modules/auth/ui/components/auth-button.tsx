@@ -7,11 +7,23 @@ import {
   SignInButton,
   SignedIn,
   SignedOut,
-  SignIn,
+  useAuth,
 } from "@clerk/nextjs";
-import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
+
+const AuthButtonSkeleton = () => (
+  <div className="flex items-center justify-center">
+    <Skeleton className="size-7 rounded-full w-[104px]" />
+  </div>
+);
 
 export const AuthButton = () => {
+  const { isLoaded } = useAuth();
+
+  if (!isLoaded) {
+    return <AuthButtonSkeleton />;
+  }
+
   return (
     <>
       <SignedIn>
